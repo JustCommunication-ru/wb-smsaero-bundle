@@ -7,7 +7,7 @@
 Требуется переработка. Когда появится такая необходимость кто-нибудь обязательно этим займется.
 
 ## Установка 
-`composer require justcommunication/smsaero-bundle`
+`composer require justcommunication/wb-smsaero-bundle`
 
 ## Требования
 Требует telegram-bundle

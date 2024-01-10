@@ -1,5 +1,5 @@
 {
-    "name": "justcommunication-ru/smsaero-bundle",
+    "name": "justcommunication-ru/wb-smsaero-bundle",
     "description": "SmsAero bundle",
     "type": "symfony-bundle",
     "keywords": ["sms","smsaero"],
@@ -8,7 +8,7 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.1",
-        "justcommunication-ru/func-bundle": "^0.1.3",
+        "justcommunication-ru/wb-func-bundle": "^0.1.3",
         "predis/predis": "^2.1",
 
         "symfony/http-kernel": ">=5.4 ^6.2",
@@ -27,8 +27,8 @@
     },
     "repositories": [
         {
-            "type": "vcs",
-            "url":  "git@github.com:JustCommunication-ru/func-bundle.git"
+            "type": "git",
+            "url": "https://github.com/JustCommunication-ru/wb-func-bundle.git"
         }
     ],
     "autoload-dev": {
