@@ -1,0 +1,39 @@
+{
+    "name": "justcommunication-ru/smsaero-bundle",
+    "description": "SmsAero bundle",
+    "type": "symfony-bundle",
+    "keywords": ["sms","smsaero"],
+    "license": "proprietary",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.1",
+        "justcommunication-ru/func-bundle": "^0.1.3",
+        "predis/predis": "^2.1",
+
+        "symfony/http-kernel": ">=5.4 ^6.2",
+        "symfony/config": ">=5.4 ^6.2",
+        "symfony/dependency-injection": ">=5.4 ^6.2",
+
+        "symfony/event-dispatcher": ">=5.4 ^6.2"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "JustCommunication\\SmsAeroBundle\\": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:JustCommunication-ru/func-bundle.git"
+        }
+    ],
+    "autoload-dev": {
+        "psr-4": {
+            "JustCommunication\\SmsAeroBundle\\Tests\\": "tests/"
+        }
+    }
+}
