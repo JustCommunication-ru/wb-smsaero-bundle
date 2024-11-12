@@ -17,8 +17,9 @@ use Psr\Log\LoggerInterface;
  */
 class LogSmsRepository extends ServiceEntityRepository
 {
-    use CacheTrait;
+    #use CacheTrait;
     private EntityManagerInterface $em;
+    private LoggerInterface $logger;
 
     public function __construct(ManagerRegistry $registry, LoggerInterface $logger, EntityManagerInterface $em)
     {

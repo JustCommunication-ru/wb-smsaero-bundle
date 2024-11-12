@@ -10,6 +10,14 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="log_sms", indexes={@ORM\Index(name="phone", columns={"phone"}), @ORM\Index(name="datein", columns={"datein"}), @ORM\Index(name="ip", columns={"ip"}), @ORM\Index(name="result_code", columns={"result_code"})})
  * @ORM\Entity
  */
+
+#[ORM\Entity]
+#[ORM\Table(name: 'log_sms')]
+#[ORM\Index(name: 'phone', columns: ['phone'])]
+#[ORM\Index(name: 'datein', columns: ['datein'])]
+#[ORM\Index(name: 'ip', columns: ['ip'])]
+#[ORM\Index(name: 'result_code', columns: ['result_code'])]
+
 class LogSms
 {
     /**
@@ -19,6 +27,9 @@ class LogSms
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(name: 'id', type: 'integer', nullable: false)]
     private $id;
 
     /**
@@ -26,6 +37,7 @@ class LogSms
      *
      * @ORM\Column(name="id_user", type="integer", nullable=false)
      */
+    #[ORM\Column(name: 'id_user', type: 'integer', nullable: false)]
     private $idUser;
 
     /**
@@ -33,6 +45,7 @@ class LogSms
      *
      * @ORM\Column(name="datein", type="datetime", nullable=false)
      */
+    #[ORM\Column(name: 'datein', type: 'datetime', nullable: false)]
     private $datein;
 
     /**
@@ -40,6 +53,7 @@ class LogSms
      *
      * @ORM\Column(name="phone", type="string", length=12, nullable=false)
      */
+    #[ORM\Column(name: 'phone', type: 'string', length: 12, nullable: false)]
     private $phone;
 
     /**
@@ -47,6 +61,7 @@ class LogSms
      *
      * @ORM\Column(name="action", type="string", length=20, nullable=false)
      */
+    #[ORM\Column(name: 'action', type: 'string', length: 20, nullable: false)]
     private $action;
 
     /**
@@ -54,6 +69,7 @@ class LogSms
      *
      * @ORM\Column(name="code", type="string", length=10, nullable=false)
      */
+    #[ORM\Column(name: 'code', type: 'string', length: 10, nullable: false)]
     private $code;
 
     /**
@@ -61,6 +77,7 @@ class LogSms
      *
      * @ORM\Column(name="mess", type="string", length=255, nullable=false)
      */
+    #[ORM\Column(name: 'mess', type: 'string', length: 255, nullable: false)]
     private $mess;
 
     /**
@@ -68,6 +85,7 @@ class LogSms
      *
      * @ORM\Column(name="try", type="boolean", nullable=false)
      */
+    #[ORM\Column(name: 'try', type: 'boolean', nullable: false)]
     private $try;
 
     /**
@@ -75,6 +93,7 @@ class LogSms
      *
      * @ORM\Column(name="ip", type="string", length=50, nullable=false)
      */
+    #[ORM\Column(name: 'ip', type: 'string', length: 50, nullable: false)]
     private $ip;
 
     /**
@@ -82,6 +101,7 @@ class LogSms
      *
      * @ORM\Column(name="sended", type="boolean", nullable=false)
      */
+    #[ORM\Column(name: 'sended', type: 'boolean', nullable: false)]
     private $sended;
 
     /**
@@ -89,6 +109,7 @@ class LogSms
      *
      * @ORM\Column(name="result", type="text", length=65535, nullable=false)
      */
+    #[ORM\Column(name: 'result', type: 'text', length: 65535, nullable: false)]
     private $result;
 
 
@@ -98,6 +119,7 @@ class LogSms
      *
      * @ORM\Column(name="result_code", type="integer", nullable=false)
      */
+    #[ORM\Column(name: 'result_code', type: 'integer', nullable: false)]
     private $resultCode;
 
 
