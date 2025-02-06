@@ -5,6 +5,7 @@ namespace JustCommunication\SmsAeroBundle\Service;
 use JustCommunication\FuncBundle\Service\FuncHelper;
 use JustCommunication\SmsAeroBundle\Event\SmsAeroEvent;
 use JustCommunication\SmsAeroBundle\Repository\LogSmsRepository;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -24,6 +25,7 @@ class SmsAeroHelper
     public $redis;
     public LogSmsRepository $logSmsRepository;
     public EventDispatcherInterface $eventDispatcher;
+    public LoggerInterface $logger;
 
     const REDIS_KEY = 'sms_send_over';
     const RESULT_CODE_SUCCESS = 1;
@@ -36,12 +38,15 @@ class SmsAeroHelper
 
     public function __construct(ParameterBagInterface $params,
                                 RedisHelper $redisHelper,
-                                LogSmsRepository $logSmsRepository, EventDispatcherInterface $eventDispatcher)
+                                LogSmsRepository $logSmsRepository, 
+                                EventDispatcherInterface $eventDispatcher,
+                                LoggerInterface $logger)
     {
         $this->config = $params->get("smsaero");
         $this->redis = $redisHelper->getClient();
         $this->logSmsRepository = $logSmsRepository;
         $this->eventDispatcher = $eventDispatcher;
+        $this->logger = $logger;
     }
 
     public function resend($id){
@@ -198,25 +203,29 @@ class SmsAeroHelper
         }
 
         // Если включено логирование отправленных смс. Должна быть табличка log_sms (LogSms Entity)
-        if ($this->config['log_sms']){
+        $values = array(
+            'id_user'=>$id_users,
+            'phone'=>$phone,
+            'action'=>$action,
+            'code' =>$code,
+            'mess'=>$text,
+            'try'=>$try,
+            'ip'=> $ip,
+            'sended'=>$sended?1:0,
+            'result'=>$result,
+            'result_code'=>$result_code
+        );
 
-            $values = array(
-                'id_user'=>$id_users,
-                'phone'=>$phone,
-                'action'=>$action,
-                'code' =>$code,
-                'mess'=>$text,
-                'try'=>$try,
-                'ip'=> $ip,
-                'sended'=>$sended?1:0,
-                'result'=>$result,
-                'result_code'=>$result_code
-            );
+        if ($this->config['log_sms']){
             $this->logSmsRepository->newLog($values);
         }
 
         //return $sended || $this->config['stub'];
-        return $sended || $result_code==self::RESULT_CODE_STUB_TURN_ON;
+        $result = $sended || $result_code==self::RESULT_CODE_STUB_TURN_ON;
+        if(!$result){
+            $this->logger->warning(var_export($values, true));
+        }
+        return $result;
     }
 
     public function getDebug(){
